@@ -1,8 +1,10 @@
 package exercise_test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
@@ -76,7 +78,13 @@ public class TestApp {
 		t1.start();
 		t2.start();
 		t3.start();
-		
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		
 		// Ghi dữ liệu ra file
 		if(kt1 == true && kt2 == true && kt3 == true) {
@@ -87,6 +95,7 @@ public class TestApp {
 				fos = new FileOutputStream(file);
 				oos = new ObjectOutputStream(fos);
 				oos.writeObject(person);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -102,7 +111,6 @@ public class TestApp {
 				}
 			}
 		}
-		
 		
 	}
 	
