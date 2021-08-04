@@ -1,7 +1,11 @@
 package exercise_test;
 
-public class Person {
+import java.io.Serializable;
 
+public class Person implements Serializable{
+
+	private static final long serialVersionUID = 8973172462997054265L;
+	
 	private String name;
 	private int age;
 	private String nameMother;
@@ -61,5 +65,6 @@ public class Person {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
 	
 }

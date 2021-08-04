@@ -8,7 +8,7 @@ import exercise_test.intf.ReadFile;
 
 public class MainApp {
 	
-CommandLineProcessor cmdP;
+	CommandLineProcessor cmdP;
 	
 	public MainApp(String args[]) {
 		cmdP = new CommandLineProcessor(args);
