@@ -1,27 +1,61 @@
 package exercise_test;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
 import exercise_test.thread.Thread1;
 import exercise_test.thread.Thread2;
 import exercise_test.thread.Thread3;
-import exercise_test.thread.Thread4;
 
 public class TestApp {
 	
 	public static void main(String[] args) {
+		CyclicBarrier cyclicBarrier = new CyclicBarrier(4);
 		
 		Person person = new Person(22);
 		
-		GeneralHandling gh = new GeneralHandling(person);
-			
-		Thread1 thread1 = new Thread1(gh); // CHECK FILE Mom.dat
-		Thread2 thread2 = new Thread2(gh); // CHECK FILE Dad.dat
-		Thread3 thread3 = new Thread3(gh); // CHECK FILE UBND.dat
-		Thread4 thread4 = new Thread4(gh); // WRITE IN TO FILE result.bin
+		Thread1 thread1 = new Thread1(cyclicBarrier ,person);
+		Thread2 thread2 = new Thread2(cyclicBarrier ,person);
+		Thread3 thread3 = new Thread3(cyclicBarrier ,person);
 		
-		thread1.start();
-		thread2.start();	
-		thread3.start();
-		thread4.start();
+		thread1.start(); // Check Mom.dat
+		thread2.start(); // Check Dad.dat	
+		thread3.start(); // Check UBND.dat
+		
+		try {
+			cyclicBarrier.await();
+		} catch (InterruptedException | BrokenBarrierException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Main start ...");
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		if(thread1.getCheck() == true && thread2.getCheck() == true && 
+				thread3.getCheck() == true) {
+			try {
+				File file = new File("result.bin");
+				fos = new FileOutputStream(file);
+				oos = new ObjectOutputStream(fos);
+				oos.writeObject(person);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(fos != null) {
+						fos.close();
+					}
+					if(oos != null) {
+						oos.close();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 	}
 	
