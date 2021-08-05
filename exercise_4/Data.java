@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Data {
 	
-	private ArrayList<Integer> list;
+	private List<Integer> list = new ArrayList<Integer>();
 	
 	public Data() {
 		
@@ -18,12 +18,11 @@ public class Data {
 		return list;
 	}
 
-	public void setList(ArrayList<Integer> list) {
+	public void setList(List<Integer> list) {
 		this.list = list;
 	}
 	
-	public void readDataFromFile(String filePath) {
-		ArrayList<Integer> list = new ArrayList<Integer>();
+	public List<Integer> readDataFromFile(String filePath) {
 		File file = new File(filePath);
 		try {
 			Scanner scanner = new Scanner(file);
@@ -31,9 +30,10 @@ public class Data {
 				list.add(scanner.nextInt());
 			}
 			scanner.close();
-			this.list =  list;
+			return list;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 
