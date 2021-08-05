@@ -1,4 +1,4 @@
-package exercise_test.thread;
+package exercise_test.threadcyclicbarrier;
 
 import java.util.List;
 import java.util.concurrent.BrokenBarrierException;

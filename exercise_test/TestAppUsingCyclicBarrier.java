@@ -6,11 +6,11 @@ import java.io.ObjectOutputStream;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-import exercise_test.thread.Thread1;
-import exercise_test.thread.Thread2;
-import exercise_test.thread.Thread3;
+import exercise_test.threadcyclicbarrier.Thread1;
+import exercise_test.threadcyclicbarrier.Thread2;
+import exercise_test.threadcyclicbarrier.Thread3;
 
-public class TestApp {
+public class TestAppUsingCyclicBarrier {
 	
 	public static void main(String[] args) {
 		CyclicBarrier cyclicBarrier = new CyclicBarrier(4);
@@ -30,7 +30,7 @@ public class TestApp {
 		} catch (InterruptedException | BrokenBarrierException e) {
 			e.printStackTrace();
 		}
-		
+			
 		System.out.println("Main start ...");
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
@@ -56,6 +56,7 @@ public class TestApp {
 				}
 			}
 		}
+		
 		
 	}
 	
