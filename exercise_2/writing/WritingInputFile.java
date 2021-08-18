@@ -15,7 +15,6 @@ public class WritingInputFile {
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
-			System.out.println(config.getSize());
 			fw = new FileWriter(new File(filePath));
 			bw = new BufferedWriter(fw);
 			for(int i = 0; i < config.getSize(); i++) {
