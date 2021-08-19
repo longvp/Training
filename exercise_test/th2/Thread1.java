@@ -1,30 +1,22 @@
-package exercise_test.thread;
+package exercise_test.th2;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import exercise_test.MainApp;
 import exercise_test.Person;
 
 public class Thread1 extends Thread{
 	
+	private Manager manager;
 	private Person person;
-	private Queue<Integer> results = new LinkedList<Integer>();
 	
-	public Thread1(Person person, Queue<Integer> results) {
+	public Thread1(Manager manager, Person person) {
+		this.manager = manager;
 		this.person = person;
-		this.results = results;
 	}
 	
-	public synchronized void xuly() {
-		while(results.isEmpty()) {
-			try {
-				results.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+	@Override
+	public void run() {
 		String[] arrStr = {"Mom.dat", "io"};
 		MainApp mainApp = new MainApp(arrStr);
 		List<String> list = mainApp.run();
@@ -34,16 +26,11 @@ public class Thread1 extends Thread{
 		if(person.getAge() == 2022-yearBorn) {
 			person.setName(list.get(1));
 			person.setBirthday(birthday);
-			results.add(1);
-			results.notifyAll();
-		}
-	}
-	
-	@Override
-	public void run() {
-		while(results.size() != 2) {
-			xuly();
-		}
+			manager.increaseCheck();
+			System.out.println("Thread 1 - Check: " + manager.getCheck());
+		} 
+		manager.decreaseThread();
+		System.out.println(manager.getNumberOfThread());
 	}
 	
 }
