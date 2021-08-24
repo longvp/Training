@@ -7,16 +7,17 @@ import exercise_test.Person;
 
 public class Thread3 extends Thread{
 	
-	private Manager manager;
+	private final ICheckerResult checkerResult;
 	private Person person;
 	
-	public Thread3(Manager manager, Person person) {
-		this.manager = manager;
+	public Thread3(Person person, ICheckerResult checkerResult) {
 		this.person = person;
+		this.checkerResult = checkerResult;
 	}
 	
 	@Override
 	public void run() {
+		boolean result = false;
 		String[] arrStr = {"UBND.dat", "io"};
 		MainApp mainApp = new MainApp(arrStr);
 		List<String> list= mainApp.run();
@@ -29,11 +30,10 @@ public class Thread3 extends Thread{
 			person.setNameFather(list.get(4));
 			person.setNameMother(list.get(5));
 			person.setBirthday(list.get(6));
-			manager.increaseCheck();
-			System.out.println("Thread 3 - Check: " + manager.getCheck());
+			result = true;
 		}
-		manager.decreaseThread();
-		System.out.println(manager.getNumberOfThread());
+		System.out.println("3");
+		checkerResult.onResult(result);
 	}
 
 }

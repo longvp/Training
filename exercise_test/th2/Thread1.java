@@ -7,16 +7,17 @@ import exercise_test.Person;
 
 public class Thread1 extends Thread{
 	
-	private Manager manager;
+	private final ICheckerResult checkerResult;
 	private Person person;
 	
-	public Thread1(Manager manager, Person person) {
-		this.manager = manager;
+	public Thread1(Person person, ICheckerResult checkerResult) {
 		this.person = person;
+		this.checkerResult = checkerResult;
 	}
 	
 	@Override
 	public void run() {
+		boolean result = false;
 		String[] arrStr = {"Mom.dat", "io"};
 		MainApp mainApp = new MainApp(arrStr);
 		List<String> list = mainApp.run();
@@ -26,11 +27,11 @@ public class Thread1 extends Thread{
 		if(person.getAge() == 2022-yearBorn) {
 			person.setName(list.get(1));
 			person.setBirthday(birthday);
-			manager.increaseCheck();
-			System.out.println("Thread 1 - Check: " + manager.getCheck());
+			result = true;
 		} 
-		manager.decreaseThread();
-		System.out.println(manager.getNumberOfThread());
+		
+		System.out.println("1");
+		checkerResult.onResult(result);
 	}
 	
 }

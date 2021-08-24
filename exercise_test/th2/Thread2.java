@@ -7,26 +7,26 @@ import exercise_test.Person;
 
 public class Thread2 extends Thread{
 
-	private Manager manager;
+	private final ICheckerResult checkerResult;
 	private Person person;
 	
-	public Thread2(Manager manager, Person person) {
-		this.manager = manager;
+	public Thread2(Person person, ICheckerResult checkerResult) {
 		this.person = person;
+		this.checkerResult = checkerResult;
 	}
 	
 	@Override
 	public void run() {
+		boolean result = false;
 		String[] arrStr = {"Dad.dat", "io"};
 		MainApp mainApp = new MainApp(arrStr);
 		List<String> list= mainApp.run();
 		int age = Integer.parseInt(list.get(1));
 		if(person.getAge() == age) {
-			manager.increaseCheck();
-			System.out.println("Thread 2 - Check: " + manager.getCheck());
+			result = true;
 		}
-		manager.decreaseThread();
-		System.out.println(manager.getNumberOfThread());
+		System.out.println("2");
+		checkerResult.onResult(result);	
 	}
 	
 }
