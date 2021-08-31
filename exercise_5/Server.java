@@ -1,4 +1,4 @@
-package exercise_5_new;
+package ex_5;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +17,8 @@ public class Server {
 			while(true) {
 				socket = serverSocket.accept();
 				String nameClient = "Client" + i;
-				System.out.println("Kết nối với: " + nameClient);
-				File file = new File(nameClient);
+				System.out.println("Connect to: " + nameClient);
+				File file = new File("Client");
 				if(!file.exists()) {
 					file.mkdir();
 				}
